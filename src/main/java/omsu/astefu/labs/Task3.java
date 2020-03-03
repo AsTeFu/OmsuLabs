@@ -1,5 +1,6 @@
 package omsu.astefu.labs;
 
+import javax.xml.bind.ValidationException;
 import java.util.regex.Pattern;
 
 public class Task3 implements Task {
@@ -22,17 +23,24 @@ public class Task3 implements Task {
         System.out.println(isEquals(formatLine(line1), formatLine(line2)));
         System.out.println(String.format("The line '%s' is %s a shifter of line '%s'",
                 line1, isShifter(line1, line2) ? "" : "not", line2));
-        System.out.println(String.format("Email: line1: %b; line2: %b",
-                isPattern(line1, REGEX_EMAIL), isPattern(line2, REGEX_EMAIL)));
-        System.out.println(String.format("Phone: line1: %b; line2: %b",
-                isPattern(line1, REGEX_PHONE), isPattern(line2, REGEX_PHONE)));
-        System.out.println(String.format("IP: line1: %b; line2: %b",
-                isPattern(line1, REGEX_IP), isPattern(line2, REGEX_IP)));
+
+        try {
+            System.out.println(String.format("Email: line1: %b; line2: %b",
+                    isPattern(line1, REGEX_EMAIL, " is not email"), isPattern(line2, REGEX_EMAIL, " is not email")));
+            System.out.println(String.format("Phone: line1: %b; line2: %b",
+                    isPattern(line1, REGEX_PHONE, " is not phone"), isPattern(line2, REGEX_PHONE, " is not phone")));
+            System.out.println(String.format("IP: line1: %b; line2: %b",
+                    isPattern(line1, REGEX_IP, " is not ip"), isPattern(line2, REGEX_IP, " is not ip")));
+        } catch (ValidationException ex) {
+            System.out.println("Ошибки идут мимо");
+            //TODO: обработай ошиибки
+        }
     }
 
-    private static boolean isPattern(final String line, final String regex) {
+    private static boolean isPattern(final String line, final String regex, final String errorMessage) throws ValidationException {
         Pattern pattern = Pattern.compile(regex);
-        return pattern.matcher(line).find();
+        if (!pattern.matcher(line).find()) throw new ValidationException(line + errorMessage);
+        return true;
     }
 
     private static boolean isShifter(final String line1, final String line2) {
