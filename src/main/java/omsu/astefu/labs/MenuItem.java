@@ -4,11 +4,11 @@ public class MenuItem {
 
     private String name;
     private int index;
-    private MenuElement function;
+    private Task function;
 
     private static int maxIndex = 0;
 
-    public MenuItem(String name, MenuElement function) {
+    public MenuItem(String name, Task function) {
         this.name = name;
         this.function = function;
         this.index = maxIndex++;

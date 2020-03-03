@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Menu {
     private final ArrayList<MenuItem> menuItems = new ArrayList<>();
 
-    public void addMenuItem(final String name, final MenuElement func) {
+    public void addMenuItem(final String name, final Task func) {
         menuItems.add(new MenuItem(name, func));
     }
 

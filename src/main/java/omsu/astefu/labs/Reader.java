@@ -69,4 +69,9 @@ public class Reader {
 
         return days;
     }
+
+    public String getLine(final String message) {
+        System.out.print(message);
+        return scanner.next();
+    }
 }

@@ -1,6 +1,6 @@
 package omsu.astefu.labs;
 
 @FunctionalInterface
-public interface MenuElement {
+public interface Task {
     void accept();
 }
