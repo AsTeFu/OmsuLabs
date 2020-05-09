@@ -1,4 +1,4 @@
-package omsu.astefu.labs;
+package omsu.astefu.labs.io;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,7 +33,7 @@ public class Reader {
     public int readNumber(final Predicate<Integer> predicate, final String startMessage, final String errorMessage) {
         int x;
         System.out.print(startMessage);
-        while (predicate.test(x = readNumber())) {
+        while (!predicate.test(x = readNumber())) {
             System.out.print(errorMessage);
         }
         return x;
@@ -54,11 +54,11 @@ public class Reader {
         } while (true);
     }
 
-    public long getTimeCut(Reader reader) {
+    public long getTimeCut() {
         long days;
         do {
-            LocalDate date1 = reader.readDate("\tInput first date: ", "\tTry again: ");
-            LocalDate date2 = reader.readDate("\tInput second date: ", "\tTry again: ");
+            LocalDate date1 = readDate("\tInput first date: ", "\tTry again: ");
+            LocalDate date2 = readDate("\tInput second date: ", "\tTry again: ");
 
             days = ChronoUnit.DAYS.between(date1, date2);
 
